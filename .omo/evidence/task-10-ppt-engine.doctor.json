@@ -1,0 +1,86 @@
+{
+  "ok": true,
+  "strict": true,
+  "checks": [
+    {
+      "name": "node",
+      "ok": true,
+      "detail": "Node.js 24.16.0 (required >= 20)",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "playwright",
+      "ok": true,
+      "detail": "Chromium executable found at C:\\Users\\29602\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "sharp",
+      "ok": true,
+      "detail": "sharp 0.35.4 (libvips 8.18.6) native binding loaded",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "font:msyh.ttc",
+      "ok": true,
+      "detail": "Microsoft YaHei (寰蒋闆呴粦) found at C:\\Windows\\Fonts\\msyh.ttc",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "font:msyhbd.ttc",
+      "ok": true,
+      "detail": "Microsoft YaHei Bold (寰蒋闆呴粦 Bold) found at C:\\Windows\\Fonts\\msyhbd.ttc",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "font:Deng.ttf",
+      "ok": true,
+      "detail": "DengXian (绛夌嚎) found at C:\\Windows\\Fonts\\Deng.ttf",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "font:segoeui.ttf",
+      "ok": true,
+      "detail": "Segoe UI found at C:\\Windows\\Fonts\\segoeui.ttf",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "font:arial.ttf",
+      "ok": true,
+      "detail": "Arial found at C:\\Windows\\Fonts\\arial.ttf",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "soffice",
+      "ok": true,
+      "detail": "soffice not found (optional 鈥?pixel-diff QA will be skipped)",
+      "fix": "Install LibreOffice (https://www.libreoffice.org/) to enable optional pixel-diff QA; not required for core conversion.",
+      "mandatory": false,
+      "found": false
+    },
+    {
+      "name": "pdftoppm",
+      "ok": true,
+      "detail": "pdftoppm not found (optional 鈥?pixel-diff QA will be skipped)",
+      "fix": "Install Poppler (https://github.com/oschwartz10612/poppler-windows) to enable optional pixel-diff QA; not required for core conversion.",
+      "mandatory": false,
+      "found": false
+    }
+  ]
+}

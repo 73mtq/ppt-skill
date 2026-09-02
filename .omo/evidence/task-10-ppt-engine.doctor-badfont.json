@@ -1,0 +1,86 @@
+{
+  "ok": false,
+  "strict": true,
+  "checks": [
+    {
+      "name": "node",
+      "ok": true,
+      "detail": "Node.js 24.16.0 (required >= 20)",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "playwright",
+      "ok": true,
+      "detail": "Chromium executable found at C:\\Users\\29602\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "sharp",
+      "ok": true,
+      "detail": "sharp 0.35.4 (libvips 8.18.6) native binding loaded",
+      "fix": "",
+      "mandatory": true,
+      "found": true
+    },
+    {
+      "name": "font:msyh.ttc",
+      "ok": false,
+      "detail": "Microsoft YaHei (寰蒋闆呴粦) (msyh.ttc) NOT found in C:\\nonexistent",
+      "fix": "Install the missing font (Windows: Settings > Personalization > Fonts, or install the Microsoft YaHei / DengXian font package). The engine needs these Windows fonts for CJK text rendering.",
+      "mandatory": true,
+      "found": false
+    },
+    {
+      "name": "font:msyhbd.ttc",
+      "ok": false,
+      "detail": "Microsoft YaHei Bold (寰蒋闆呴粦 Bold) (msyhbd.ttc) NOT found in C:\\nonexistent",
+      "fix": "Install the missing font (Windows: Settings > Personalization > Fonts, or install the Microsoft YaHei / DengXian font package). The engine needs these Windows fonts for CJK text rendering.",
+      "mandatory": true,
+      "found": false
+    },
+    {
+      "name": "font:Deng.ttf",
+      "ok": false,
+      "detail": "DengXian (绛夌嚎) (Deng.ttf or Dengb.ttf) NOT found in C:\\nonexistent",
+      "fix": "Install the missing font (Windows: Settings > Personalization > Fonts, or install the Microsoft YaHei / DengXian font package). The engine needs these Windows fonts for CJK text rendering.",
+      "mandatory": true,
+      "found": false
+    },
+    {
+      "name": "font:segoeui.ttf",
+      "ok": false,
+      "detail": "Segoe UI (segoeui.ttf) NOT found in C:\\nonexistent",
+      "fix": "Install the missing font (Windows: Settings > Personalization > Fonts, or install the Microsoft YaHei / DengXian font package). The engine needs these Windows fonts for CJK text rendering.",
+      "mandatory": true,
+      "found": false
+    },
+    {
+      "name": "font:arial.ttf",
+      "ok": false,
+      "detail": "Arial (arial.ttf) NOT found in C:\\nonexistent",
+      "fix": "Install the missing font (Windows: Settings > Personalization > Fonts, or install the Microsoft YaHei / DengXian font package). The engine needs these Windows fonts for CJK text rendering.",
+      "mandatory": true,
+      "found": false
+    },
+    {
+      "name": "soffice",
+      "ok": true,
+      "detail": "soffice not found (optional 鈥?pixel-diff QA will be skipped)",
+      "fix": "Install LibreOffice (https://www.libreoffice.org/) to enable optional pixel-diff QA; not required for core conversion.",
+      "mandatory": false,
+      "found": false
+    },
+    {
+      "name": "pdftoppm",
+      "ok": true,
+      "detail": "pdftoppm not found (optional 鈥?pixel-diff QA will be skipped)",
+      "fix": "Install Poppler (https://github.com/oschwartz10612/poppler-windows) to enable optional pixel-diff QA; not required for core conversion.",
+      "mandatory": false,
+      "found": false
+    }
+  ]
+}

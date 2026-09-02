@@ -9,10 +9,7 @@
  * All except `doctor` are stubs (exit 2, "not implemented") — later todos own them.
  */
 
-const fs = require('node:fs');
-const path = require('node:path');
-
-const MIN_NODE_MAJOR = 20;
+const doctor = require('../src/doctor.js');
 
 const COMMANDS = {
   convert: {
@@ -32,7 +29,7 @@ const COMMANDS = {
     stub: true,
   },
   doctor: {
-    summary: 'Environment self-check (Node / Playwright / Sharp)',
+    summary: 'Environment self-check (Node / Playwright / Sharp / fonts / optional tools)',
     stub: false,
   },
 };
@@ -45,104 +42,6 @@ function usage(stream) {
     stream.write(`  ${name.padEnd(14)} ${def.summary}\n`);
   }
   stream.write('\nRun "node bin/ppt-engine.js doctor --json" for a machine-readable environment check.\n');
-}
-
-function parseFlags(args) {
-  const flags = { json: false };
-  for (const a of args) {
-    if (a === '--json') flags.json = true;
-    // Unknown flags are ignored here; later todos own full per-command parsing.
-  }
-  return flags;
-}
-
-async function checkNode() {
-  const current = Number(process.versions.node.split('.')[0]);
-  const ok = current >= MIN_NODE_MAJOR;
-  return {
-    name: 'node',
-    ok,
-    detail: `Node.js ${process.versions.node} (required >= ${MIN_NODE_MAJOR})`,
-    fix: ok ? '' : 'Install Node.js >= 20 from https://nodejs.org/ and re-run this check.',
-  };
-}
-
-async function checkPlaywright() {
-  let executablePath = null;
-  let loadError = null;
-  try {
-    const { chromium } = require('playwright');
-    executablePath = chromium.executablePath();
-  } catch (err) {
-    loadError = err.message;
-  }
-  if (loadError) {
-    return {
-      name: 'playwright',
-      ok: false,
-      detail: `playwright module failed to load: ${loadError}`,
-      fix: 'Run "npm i" to install dependencies, then "npx playwright install chromium".',
-    };
-  }
-  const exists = fs.existsSync(executablePath);
-  return {
-    name: 'playwright',
-    ok: exists,
-    detail: exists
-      ? `Chromium executable found at ${executablePath}`
-      : `Chromium executable NOT found at ${executablePath}`,
-    fix: exists
-      ? ''
-      : 'Run "npx playwright install chromium" (CN mirror: set PLAYWRIGHT_DOWNLOAD_HOST=https://npmmirror.com/mirrors/playwright before installing).',
-  };
-}
-
-async function checkSharp() {
-  try {
-    const sharp = require('sharp');
-    const sharpEntry = require.resolve('sharp');
-    const version = JSON.parse(
-      fs.readFileSync(path.join(path.dirname(sharpEntry), '..', 'package.json'), 'utf8')
-    ).version;
-    const buf = await sharp({
-      create: { width: 1, height: 1, channels: 3, background: { r: 0, g: 0, b: 0 } },
-    })
-      .png()
-      .toBuffer();
-    const ok = buf.length > 0;
-    return {
-      name: 'sharp',
-      ok,
-      detail: ok
-        ? `sharp ${version} (libvips ${sharp.versions.vips}) native binding loaded`
-        : `sharp ${version} loaded but produced an empty buffer`,
-      fix: ok ? '' : 'Reinstall the native binding with "npm rebuild sharp".',
-    };
-  } catch (err) {
-    return {
-      name: 'sharp',
-      ok: false,
-      detail: `sharp native binding failed to load: ${err.message}`,
-      fix: 'Run "npm rebuild sharp" (or "npm i") to restore the native binding.',
-    };
-  }
-}
-
-async function runDoctor(args) {
-  const flags = parseFlags(args);
-  const checks = await Promise.all([checkNode(), checkPlaywright(), checkSharp()]);
-  const ok = checks.every((c) => c.ok);
-  if (flags.json) {
-    process.stdout.write(JSON.stringify({ ok, checks }, null, 2) + '\n');
-  } else {
-    for (const c of checks) {
-      const mark = c.ok ? 'PASS' : 'FAIL';
-      process.stdout.write(`[${mark}] ${c.name}: ${c.detail}\n`);
-      if (!c.ok && c.fix) process.stdout.write(`      fix: ${c.fix}\n`);
-    }
-    process.stdout.write(`\n${ok ? 'All checks passed.' : 'Some checks failed.'}\n`);
-  }
-  return ok ? 0 : 1;
 }
 
 async function main() {
@@ -164,7 +63,7 @@ async function main() {
     process.exit(2);
   }
   if (cmd === 'doctor') {
-    const code = await runDoctor(rest);
+    const code = await doctor.runDoctor(rest);
     process.exit(code);
   }
   process.exit(1); // unreachable
