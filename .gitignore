@@ -1,0 +1,8 @@
+# Dependencies
+node_modules/
+
+# Build / output artifacts
+out/
+
+# Large PNG screenshots (QA shots, evidence snapshots)
+*.png

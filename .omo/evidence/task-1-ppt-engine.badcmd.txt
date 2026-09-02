@@ -1,0 +1,15 @@
+ppt-engine: unknown command "nosuchcmd"
+
+ppt-engine - HTML to native editable PPTX engine
+
+Usage: node bin/ppt-engine.js <command> [options]
+
+Commands:
+  convert        Convert an HTML project into a native editable deck.pptx
+  render         Render one-shot screenshots of each page (QA)
+  validate       Structurally validate a generated deck.pptx
+  validate-html  Validate HTML against the token / constraint rules
+  doctor         Environment self-check (Node / Playwright / Sharp)
+
+Run "node bin/ppt-engine.js doctor --json" for a machine-readable environment check.
+exit_code=1

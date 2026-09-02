@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "name": "node",
+      "ok": true,
+      "detail": "Node.js 24.16.0 (required >= 20)",
+      "fix": ""
+    },
+    {
+      "name": "playwright",
+      "ok": true,
+      "detail": "Chromium executable found at C:\\Users\\29602\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+      "fix": ""
+    },
+    {
+      "name": "sharp",
+      "ok": true,
+      "detail": "sharp 0.35.4 (libvips 8.18.6) native binding loaded",
+      "fix": ""
+    }
+  ]
+}
