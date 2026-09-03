@@ -1,0 +1,19 @@
+{
+  "title": "黄金语料库 · 12 页手写 fixture",
+  "pageSize": { "w": 960, "h": 540 },
+  "tokensPath": "tokens/default.json",
+  "pages": [
+    { "file": "01.html", "slug": "cover", "role": "cover", "intent": "CJK 封面大标题：主标题 + 副标题 + primaryDark 竖条强调" },
+    { "file": "02.html", "slug": "mixed-body", "role": "content", "intent": "中英混排正文：至少一段 CJK 段落自然折成两行" },
+    { "file": "03.html", "slug": "nested-list", "role": "content", "intent": "项目符号列表：ul/ol 两级缩进" },
+    { "file": "04.html", "slug": "image-caption", "role": "content", "intent": "图片 + 说明文字（sharp 生成的渐变 PNG）" },
+    { "file": "05.html", "slug": "gradient-bg", "role": "section", "intent": "渐变背景容器（data-ppt-raster）+ 其上原生文字" },
+    { "file": "06.html", "slug": "bar-chart", "role": "data", "intent": "柱状图 data-ppt-chart（bar，4 标签 1 系列）" },
+    { "file": "07.html", "slug": "line-chart", "role": "data", "intent": "折线图 data-ppt-chart（line，6 标签 2 系列）" },
+    { "file": "08.html", "slug": "dense-text", "role": "content", "intent": "高密度文字压力页：≥500 汉字，h3/p 混合结构" },
+    { "file": "09.html", "slug": "flex-hero", "role": "section", "intent": "flex 居中 hero：大标题 + tagline" },
+    { "file": "10.html", "slug": "adversarial-cjk", "role": "content", "intent": "对抗性 CJK：行尾闭括号、ー/ぁ 行首、连续标点、雅黑外生僻字" },
+    { "file": "11.html", "slug": "two-column", "role": "content", "intent": "双栏布局：左右各一个标题 + 列表" },
+    { "file": "12.html", "slug": "closing", "role": "closing", "intent": "结尾页：致谢 + 联系方式" }
+  ]
+}

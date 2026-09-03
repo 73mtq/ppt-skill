@@ -1,0 +1,163 @@
+{
+  "pages": [
+    {
+      "file": "01.html",
+      "textLineCounts": {
+        "title": 1,
+        "subtitle": 1,
+        "meta": 1
+      },
+      "totalTextRuns": 3,
+      "chartType": "none",
+      "imageCount": 0,
+      "notes": "cover：56px 大标题/26px 副标题/13px meta 各 1 行；画布内边距 64px"
+    },
+    {
+      "file": "02.html",
+      "textLineCounts": {
+        "title": 1,
+        "para-mixed": 2,
+        "para-en": 2,
+        "para-note": 1
+      },
+      "totalTextRuns": 4,
+      "chartType": "none",
+      "imageCount": 0,
+      "notes": "中英混排：para-mixed 17px 每行约 50 字折 2 行；para-en 拉丁按 0.55em/字宽估算 2 行；note 13px 1 行"
+    },
+    {
+      "file": "03.html",
+      "textLineCounts": {
+        "title": 1,
+        "li-1": 1,
+        "li-2": 1,
+        "li-2a": 1,
+        "li-2b": 1,
+        "li-3": 1
+      },
+      "totalTextRuns": 6,
+      "chartType": "none",
+      "imageCount": 0,
+      "notes": "列表页：li 17px，ul padding-left 24px（li 文本宽 840px，二级 816px），全部单行"
+    },
+    {
+      "file": "04.html",
+      "textLineCounts": {
+        "title": 1,
+        "caption": 1
+      },
+      "totalTextRuns": 2,
+      "chartType": "none",
+      "imageCount": 1,
+      "notes": "img-main 1 张（../assets/fixture-image.png，sharp 生成 640x420 渐变）；caption 13px 1 行"
+    },
+    {
+      "file": "05.html",
+      "textLineCounts": {
+        "title": 1,
+        "subtitle": 1
+      },
+      "totalTextRuns": 2,
+      "chartType": "none",
+      "imageCount": 0,
+      "notes": "渐变容器 data-ppt-raster（无文字），其上原生 title/subtitle 各 1 行"
+    },
+    {
+      "file": "06.html",
+      "textLineCounts": {
+        "title": 1,
+        "note": 1
+      },
+      "totalTextRuns": 2,
+      "chartType": "bar",
+      "imageCount": 0,
+      "notes": "bar 图表（4 labels 1 series）；note 13px 1 行"
+    },
+    {
+      "file": "07.html",
+      "textLineCounts": {
+        "title": 1,
+        "note": 1
+      },
+      "totalTextRuns": 2,
+      "chartType": "line",
+      "imageCount": 0,
+      "notes": "line 图表（6 labels 2 series）；note 13px 1 行"
+    },
+    {
+      "file": "08.html",
+      "textLineCounts": {
+        "title": 1,
+        "sec-1": 1,
+        "p-1": 2,
+        "sec-2": 1,
+        "p-2": 3,
+        "sec-3": 1,
+        "p-3": 2,
+        "sec-4": 1,
+        "p-4": 2,
+        "sec-5": 1,
+        "p-5": 2
+      },
+      "totalTextRuns": 11,
+      "chartType": "none",
+      "imageCount": 0,
+      "notes": "高密度压力页：p 14px 每行约 61 字；五段共 11 行，总字数 >500"
+    },
+    {
+      "file": "09.html",
+      "textLineCounts": {
+        "title": 1,
+        "tagline": 1
+      },
+      "totalTextRuns": 2,
+      "chartType": "none",
+      "imageCount": 0,
+      "notes": "flex 居中 hero：56px 标题 + 26px tagline 各 1 行"
+    },
+    {
+      "file": "10.html",
+      "textLineCounts": {
+        "title": 1,
+        "p-close-bracket": 1,
+        "p-line-start-1": 1,
+        "p-line-start-2": 1,
+        "p-punct-run": 2,
+        "p-punct-run-2": 2,
+        "p-rare-char": 1
+      },
+      "totalTextRuns": 7,
+      "chartType": "none",
+      "imageCount": 0,
+      "notes": "对抗性 CJK：行尾闭括号恰满 1 行；20 连 ー 与 ぁぃぅぇぉ 行首段各 1 行；连续标点两段各 2 行；雅黑外生僻字 𠀀/𠈌 等代理对 1 行"
+    },
+    {
+      "file": "11.html",
+      "textLineCounts": {
+        "h3-left": 1,
+        "li-left-1": 2,
+        "li-left-2": 1,
+        "li-left-3": 1,
+        "h3-right": 1,
+        "li-right-1": 1,
+        "li-right-2": 1,
+        "li-right-3": 1
+      },
+      "totalTextRuns": 8,
+      "chartType": "none",
+      "imageCount": 0,
+      "notes": "双栏 flex（gap 24px）：列宽 420px，li 文本宽 396px（每行约 23 字）；li-left-1 28 字折 2 行"
+    },
+    {
+      "file": "12.html",
+      "textLineCounts": {
+        "title": 1,
+        "contact": 1
+      },
+      "totalTextRuns": 2,
+      "chartType": "none",
+      "imageCount": 0,
+      "notes": "closing 居中（flex column）：56px 标题 1 行；联系方式 17px 拉丁按 0.55em 估算 1 行；64x4 金色 accent"
+    }
+  ]
+}

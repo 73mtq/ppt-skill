@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>11-双栏布局</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    width: 960px; height: 540px; margin: 0;
+    background: #F5F7FA;
+    font-family: "DengXian", "Microsoft YaHei", "Segoe UI", sans-serif;
+    color: #1A1A1A;
+    padding: 48px 48px 48px 48px;
+    display: flex;
+    gap: 24px;
+  }
+  h3 { font-family: "Microsoft YaHei", "Segoe UI", sans-serif; font-weight: 700; }
+  ul { margin: 0; padding-left: 24px; }
+  li { font-size: 17px; line-height: 1.6; margin-top: 8px; }
+  .col { flex: 1; }
+</style>
+</head>
+<body data-ppt-role="content">
+  <div data-ppt-id="col-left" class="col">
+    <h3 data-ppt-id="h3-left" style="font-size:26px; margin:0; color:#1F4E79;">增长亮点</h3>
+    <ul data-ppt-id="ul-left" style="margin-top:16px;">
+      <li data-ppt-id="li-left-1">核心业务收入同比增长百分之二十三，超出年度目标九个百分点</li>
+      <li data-ppt-id="li-left-2">新客户门户上线后注册转化率持续提升</li>
+      <li data-ppt-id="li-left-3">自动化巡检覆盖全部核心链路</li>
+    </ul>
+  </div>
+  <div data-ppt-id="col-right" class="col">
+    <h3 data-ppt-id="h3-right" style="font-size:26px; margin:0; color:#1F4E79;">改进方向</h3>
+    <ul data-ppt-id="ul-right" style="margin-top:16px;">
+      <li data-ppt-id="li-right-1">数据采集链路仍有分钟级延迟需优化</li>
+      <li data-ppt-id="li-right-2">跨部门协作流程与数据口径需统一</li>
+      <li data-ppt-id="li-right-3">用户反馈闭环响应速度需要加快</li>
+    </ul>
+  </div>
+</body>
+</html>

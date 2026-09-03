@@ -1,0 +1,20 @@
+鉁?corpus-static 01.html (1.6162ms)
+鉁?corpus-static 02.html (0.2556ms)
+鉁?corpus-static 03.html (0.7401ms)
+鉁?corpus-static 04.html (0.275ms)
+鉁?corpus-static 05.html (0.2647ms)
+鉁?corpus-static 06.html (0.3443ms)
+鉁?corpus-static 07.html (0.2698ms)
+鉁?corpus-static 08.html (0.2658ms)
+鉁?corpus-static 09.html (0.3138ms)
+鉁?corpus-static 10.html (0.3666ms)
+鉁?corpus-static 11.html (0.269ms)
+鉁?corpus-static 12.html (0.1855ms)
+鈩?tests 12
+鈩?suites 0
+鈩?pass 12
+鈩?fail 0
+鈩?cancelled 0
+鈩?skipped 0
+鈩?todo 0
+鈩?duration_ms 88.3514

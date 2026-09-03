@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>10-对抗性中文排版</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    width: 960px; height: 540px; margin: 0;
+    background: #F5F7FA;
+    font-family: "DengXian", "Microsoft YaHei", "Segoe UI", sans-serif;
+    color: #1A1A1A;
+    padding: 48px 48px 32px 48px;
+  }
+  h2 { font-family: "Microsoft YaHei", "Segoe UI", sans-serif; font-weight: 700; }
+  p { font-size: 17px; line-height: 1.6; margin: 0; }
+</style>
+</head>
+<body data-ppt-role="content">
+  <h2 data-ppt-id="title" style="font-size:36px; margin:0; color:#1F4E79;">对抗性中文排版用例</h2>
+  <p data-ppt-id="p-close-bracket" style="margin-top:24px;">他说：这次季度复盘的重点不是数字本身，而是数字背后的业务逻辑与团队协作方式，结论如何转化为行动清单」</p>
+  <p data-ppt-id="p-line-start-1" style="margin-top:16px;">ーーーーーーーーーーーーーーーーーーーー</p>
+  <p data-ppt-id="p-line-start-2" style="margin-top:16px;">ぁぃぅぇぉ の ー゛゜ヽヾ ゔヵヶをん、次行的开头字符已在本段完整覆盖。</p>
+  <p data-ppt-id="p-punct-run" style="margin-top:16px;">原方案的数据是这样的……然后呢？我们没有依据——就这样吧……？？？！！！……——……——？？？？？？！！！</p>
+  <p data-ppt-id="p-punct-run-2" style="margin-top:16px;">“引号嵌套”‘单引号’「方头括号」『双重角括号』《书名号》、顿号、逗号、句号、冒号、分号、感叹号、问号，连续标点收尾：？！……——</p>
+  <p data-ppt-id="p-rare-char" style="margin-top:16px;">𠀀（雅黑缺字生僻字，触发字体回退警告）四叠字：𠈌𡈍𥃦𠾔，后接常规文字确保段落其余部分正常排版。</p>
+</body>
+</html>

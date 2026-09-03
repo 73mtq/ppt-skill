@@ -1,0 +1,74 @@
+# Table-fail QA: inject <table> into 09.html -> RED; remove -> GREEN
+
+## RED (with <table> injected)
+```
+鉁?corpus-static 01.html (3.3128ms)
+鉁?corpus-static 02.html (0.4738ms)
+鉁?corpus-static 03.html (0.9511ms)
+鉁?corpus-static 04.html (0.3136ms)
+鉁?corpus-static 05.html (0.2581ms)
+鉁?corpus-static 06.html (0.3885ms)
+鉁?corpus-static 07.html (0.2995ms)
+鉁?corpus-static 08.html (0.3515ms)
+鉁?corpus-static 09.html (10.0641ms)
+鉁?corpus-static 10.html (1.3692ms)
+鉁?corpus-static 11.html (0.9103ms)
+鉁?corpus-static 12.html (0.5539ms)
+鈩?tests 12
+鈩?suites 0
+鈩?pass 11
+鈩?fail 1
+鈩?cancelled 0
+鈩?skipped 0
+鈩?todo 0
+鈩?duration_ms 286.3504
+
+鉁?failing tests:
+
+test at test\corpus-static.test.js:19:3
+鉁?corpus-static 09.html (10.0641ms)
+  AssertionError [ERR_ASSERTION]: 09.html: bare text outside text elements: "x"
+  
+  'x' !== ''
+  
+      at TestContext.<anonymous> (D:\ppt-skill\test\corpus-static.test.js:38:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'x',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+```
+
+## GREEN (table removed, fixture restored)
+```
+鉁?corpus-static 01.html (1.8182ms)
+鉁?corpus-static 02.html (0.273ms)
+鉁?corpus-static 03.html (0.7323ms)
+鉁?corpus-static 04.html (0.2709ms)
+鉁?corpus-static 05.html (0.2233ms)
+鉁?corpus-static 06.html (0.3206ms)
+鉁?corpus-static 07.html (0.257ms)
+鉁?corpus-static 08.html (0.248ms)
+鉁?corpus-static 09.html (0.2692ms)
+鉁?corpus-static 10.html (0.276ms)
+鉁?corpus-static 11.html (0.2338ms)
+鉁?corpus-static 12.html (0.1679ms)
+鈩?tests 12
+鈩?suites 0
+鈩?pass 12
+鈩?fail 0
+鈩?cancelled 0
+鈩?skipped 0
+鈩?todo 0
+鈩?duration_ms 99.2933
+
+```

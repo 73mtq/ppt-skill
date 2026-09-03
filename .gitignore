@@ -6,3 +6,4 @@ out/
 
 # Large PNG screenshots (QA shots, evidence snapshots)
 *.png
+!corpus/assets/*.png
