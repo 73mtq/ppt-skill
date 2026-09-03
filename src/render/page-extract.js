@@ -173,21 +173,66 @@ function extractPageIR() {
     return nodes;
   }
 
-  // Line boxes via Range.getClientRects(), merged per visual line.
+  // Split a text node into per-visual-line fragments (text + first-char rect).
+  // Iterates character-by-character so surrogate pairs stay whole and the
+  // fragment boundaries land exactly on the browser's line breaks.
+  function textNodeFragments(node) {
+    const text = node.textContent;
+    const range = document.createRange();
+    const fragments = [];
+    let current = '';
+    let currentRect = null;
+    for (let i = 0; i < text.length; i++) {
+      const code = text.charCodeAt(i);
+      const end = (code >= 0xD800 && code <= 0xDBFF) ? i + 2 : i + 1;
+      range.setStart(node, i);
+      range.setEnd(node, end);
+      const r = range.getBoundingClientRect();
+      if (r.width > EPS && r.height > EPS) {
+        if (currentRect === null) {
+          currentRect = { x: r.x, y: r.y, w: r.width, h: r.height };
+          current = text.slice(i, end);
+        } else if (Math.abs(r.y - currentRect.y) > EPS) {
+          fragments.push({ text: current, y: currentRect.y, h: currentRect.h });
+          currentRect = { x: r.x, y: r.y, w: r.width, h: r.height };
+          current = text.slice(i, end);
+        } else {
+          current += text.slice(i, end);
+        }
+      }
+      if (end > i + 1) i = end - 1;
+    }
+    if (current) fragments.push({ text: current, y: currentRect.y, h: currentRect.h });
+    return fragments;
+  }
+
+  // Nearest <a href> ancestor of a text node (within the measured element).
+  function nearestLinkHref(node, stopEl) {
+    let p = node.parentElement;
+    while (p && p !== stopEl) {
+      if (p.tagName === 'A' && p.getAttribute('href')) return p.getAttribute('href');
+      p = p.parentElement;
+    }
+    return null;
+  }
+
+  // Line boxes via Range.getClientRects(), merged per visual line, plus the
+  // per-line text runs (split wherever the computed style differs).
   function measureLines(el) {
-    const rects = [];
-    for (const node of ownTextNodes(el)) {
+    const nodes = ownTextNodes(el);
+    const pieces = [];
+    for (const node of nodes) {
       const range = document.createRange();
       range.selectNode(node);
       for (const r of range.getClientRects()) {
         if (r.width > EPS && r.height > EPS) {
-          rects.push({ x: r.x, y: r.y, w: r.width, h: r.height });
+          pieces.push({ x: r.x, y: r.y, w: r.width, h: r.height });
         }
       }
     }
-    rects.sort((a, b) => a.y - b.y || a.x - b.x);
+    pieces.sort((a, b) => a.y - b.y || a.x - b.x);
     const merged = [];
-    for (const r of rects) {
+    for (const r of pieces) {
       const last = merged[merged.length - 1];
       if (last && r.y < last.y + last.h - EPS && r.y + r.h > last.y + EPS) {
         const xEnd = Math.max(last.x + last.w, r.x + r.w);
@@ -199,7 +244,29 @@ function extractPageIR() {
         merged.push({ x: r.x, y: r.y, w: r.w, h: r.h });
       }
     }
-    return merged;
+    // Per-line runs: split each contributing text node into fragments and
+    // assign each fragment to the line whose y-range contains its center.
+    const runs = merged.map(() => []);
+    for (const node of nodes) {
+      const host = node.parentElement;
+      const cs = getComputedStyle(host);
+      const runStyle = {
+        fontResolved: resolveFont(cs.fontFamily, node.textContent),
+        fontSizePx: parseFloat(cs.fontSize) || 0,
+        fontWeight: cs.fontWeight,
+        fontStyle: cs.fontStyle,
+        color: cs.color,
+        letterSpacingPx: cs.letterSpacing === 'normal' ? 0 : (parseFloat(cs.letterSpacing) || 0),
+        href: nearestLinkHref(node, el),
+      };
+      for (const frag of textNodeFragments(node)) {
+        if (!frag.text.trim()) continue;
+        const fragY = frag.y + frag.h / 2;
+        const li = merged.findIndex((m) => fragY >= m.y - EPS && fragY <= m.y + m.h + EPS);
+        if (li >= 0) runs[li].push({ text: frag.text, styles: runStyle });
+      }
+    }
+    return { rects: merged, runs };
   }
 
   function normalizeAlign(align) {
@@ -216,6 +283,18 @@ function extractPageIR() {
       return { widthPx: 0, style: 'none', color: 'rgba(0, 0, 0, 0)' };
     }
     return { widthPx: width, style, color: cs['border' + cap + 'Color'] };
+  }
+
+  // Inline span/a whose text is already owned by an ancestor text block
+  // (p/h1-h6/li/a/span). The convert layer must not emit them as separate
+  // text boxes or the text would be duplicated.
+  function isInlineTextDescendant(el) {
+    let p = el.parentElement;
+    while (p && p !== document.body) {
+      if (TEXT_TAGS.has(p.tagName)) return true;
+      p = p.parentElement;
+    }
+    return false;
   }
 
   function walk(el) {
@@ -249,10 +328,10 @@ function extractPageIR() {
     const cs = getComputedStyle(el);
     const isTextBlock = TEXT_TAGS.has(tag) || directTextLength(el) > 0;
 
-    let lineRects = [];
+    let lineData = null;
     if (isTextBlock) {
-      lineRects = measureLines(el);
-      lines[pptId] = { count: lineRects.length, rects: lineRects };
+      lineData = measureLines(el);
+      lines[pptId] = { count: lineData.rects.length, rects: lineData.rects, runs: lineData.runs };
     }
 
     let ascentPx = 0;
@@ -272,7 +351,7 @@ function extractPageIR() {
     if (lh === 'normal') {
       // Used line-height for `normal`: the measured first line box, else the
       // browser default factor approximation for empty blocks.
-      lineHeightUsedPx = lineRects.length ? lineRects[0].h : parseFloat(cs.fontSize) * 1.15;
+      lineHeightUsedPx = lineData && lineData.rects.length ? lineData.rects[0].h : parseFloat(cs.fontSize) * 1.15;
     } else {
       lineHeightUsedPx = parseFloat(lh) || 0;
     }
@@ -284,7 +363,33 @@ function extractPageIR() {
       parseFloat(cs.borderBottomLeftRadius) || 0,
     ];
 
-    elements.push({
+    const attrs = {};
+    if (tag === 'IMG') {
+      attrs.src = el.currentSrc || el.getAttribute('src') || '';
+      attrs.objectFit = cs.objectFit || 'fill';
+    }
+    if (tag === 'A') {
+      attrs.href = el.getAttribute('href') || '';
+    }
+    if (tag === 'SPAN' || tag === 'A') {
+      if (isInlineTextDescendant(el)) attrs.inline = true;
+    }
+    const notes = el.getAttribute('data-ppt-notes');
+    if (notes) attrs.notes = notes;
+    const chart = el.getAttribute('data-ppt-chart');
+    if (chart) attrs.chart = chart;
+    if (tag === 'UL' || tag === 'OL') attrs.listType = tag.toLowerCase();
+    if (tag === 'LI') {
+      let depth = 0;
+      let p = el.parentElement;
+      while (p && p !== document.body) {
+        if (p.tagName === 'UL' || p.tagName === 'OL') depth++;
+        p = p.parentElement;
+      }
+      attrs.depth = depth;
+    }
+
+    const element = {
       pptId,
       tag: tag.toLowerCase(),
       rect: { x: r.x, y: r.y, w: r.width, h: r.height },
@@ -312,7 +417,14 @@ function extractPageIR() {
         fontBoundingBoxAscentPx: ascentPx,
         fontBoundingBoxDescentPx: descentPx,
       },
-    });
+      attrs,
+    };
+    if (isTextBlock) {
+      let fullText = '';
+      for (const node of ownTextNodes(el)) fullText += node.textContent;
+      element.text = fullText;
+    }
+    elements.push(element);
 
     for (const child of el.children) walk(child);
   }

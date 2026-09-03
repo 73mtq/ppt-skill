@@ -39,6 +39,19 @@ function toFileUrl(absPath) {
   return 'file://' + prefix + encodeURI(forward);
 }
 
+// file:///D:/a/b.png → D:\a\b.png (Windows) or /a/b.png (POSIX).
+function fromFileUrl(fileUrl) {
+  try {
+    const u = new URL(fileUrl);
+    if (u.protocol !== 'file:') return fileUrl;
+    let p = decodeURIComponent(u.pathname);
+    if (/^\/[A-Za-z]:/.test(p)) p = p.slice(1); // strip leading slash before drive letter
+    return p.replace(/\//g, path.sep);
+  } catch (e) {
+    return fileUrl;
+  }
+}
+
 async function renderPage(htmlPath, opts = {}) {
   const absPath = path.resolve(htmlPath);
   const pageName = path.basename(absPath);
@@ -73,6 +86,18 @@ async function renderPage(htmlPath, opts = {}) {
         requestAnimationFrame(() => requestAnimationFrame(resolve));
       }));
       const extracted = await page.evaluate(extractPageIR);
+      // Resolve img srcs to absolute filesystem paths (the browser reports a
+      // file:// URL; PptxGenJS needs a path it can readFileSync).
+      for (const el of extracted.elements) {
+        if (el.tag === 'img' && el.attrs && el.attrs.src) {
+          const src = el.attrs.src;
+          if (/^file:/i.test(src)) {
+            el.attrs.src = fromFileUrl(src);
+          } else if (!/^(https?:|data:)/i.test(src)) {
+            el.attrs.src = path.resolve(path.dirname(absPath), src);
+          }
+        }
+      }
       return {
         page: pageName,
         size: { w: VIEWPORT.width, h: VIEWPORT.height },

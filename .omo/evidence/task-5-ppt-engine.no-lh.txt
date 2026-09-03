@@ -1,0 +1,3 @@
+engine error path asserted OK
+error message: convert: element "para" is missing lineHeightUsedPx (lineSpacing data)
+mentions lineHeightUsedPx: true

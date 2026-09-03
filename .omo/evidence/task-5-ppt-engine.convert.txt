@@ -1,0 +1,25 @@
+鉁?fake IR: 2-line paragraph emits 2 <a:t> separated by <a:br/> (448.1369ms)
+鉁?fake IR: runs split where computed style differs stay in one line (4.5451ms)
+鉁?fake IR: every text box has margin 0, explicit anchor, exact lineSpacing (5.182ms)
+鉁?fake IR: charSpacing = letterSpacingPx * 0.75 pt (3.4015ms)
+鉁?fake IR: lang="zh-CN" on runs (3.7804ms)
+鉁?fake IR: background shape XML appears before overlaid text (5.6766ms)
+鉁?fake IR: a[href] emits a hyperlink on its runs (4.9215ms)
+鉁?fake IR: data-ppt-notes calls addNotes (3.702ms)
+鉁?fake IR: nested li gets a deeper indentLevel (3.2295ms)
+鉁?fake IR: img with object-fit cover emits a native picture (4.5061ms)
+鉁?corpus 02: mixed paragraph emits 2 <a:t> separated by <a:br/> with YaHei runs (702.2524ms)
+鉁?corpus 05: emission order is deterministic and puts bg div before title text (719.5875ms)
+鉁?corpus 01: solid-fill divs emit rect shapes (707.4373ms)
+鉁?corpus 04: img emits a native picture (713.3966ms)
+鉁?all 12 corpus pages convert without throwing (8534.91ms)
+鉁?IR missing lineHeightUsedPx throws a structured error (1.651ms)
+鉁?IR with lineSpacing below ascent+descent throws (0.4803ms)
+鈩?tests 17
+鈩?suites 0
+鈩?pass 17
+鈩?fail 0
+鈩?cancelled 0
+鈩?skipped 0
+鈩?todo 0
+鈩?duration_ms 12552.4288
