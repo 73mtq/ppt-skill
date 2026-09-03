@@ -1,0 +1,14 @@
+{
+  "page": "raster-text.html",
+  "errors": [
+    {
+      "page": "raster-text.html",
+      "data-ppt-id": "bad-raster",
+      "rule": "raster-with-text",
+      "measured": "visible text inside raster container",
+      "available": "text-free decoration layer",
+      "suggested_fix": "split: rasterize the background layer only, keep text native (move text to a sibling element above the raster div)"
+    }
+  ],
+  "rasterized": []
+}

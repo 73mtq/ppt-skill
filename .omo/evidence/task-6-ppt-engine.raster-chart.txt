@@ -1,0 +1,13 @@
+✔ corpus 06: bar chart emits a native c:barChart with labels and series (1241.4962ms)
+✔ corpus 07: line chart emits a native c:lineChart (676.5344ms)
+✔ chart-pie fixture: unsupported type throws chart-type-unsupported (706.9539ms)
+✔ corpus 05: gradient bg rasterized as <p:pic> before native <a:t> text (2349.4413ms)
+✔ raster-text fixture: visible text inside a raster container errors raster-with-text (1310.6203ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4407.8557
