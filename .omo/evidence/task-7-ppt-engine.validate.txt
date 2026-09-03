@@ -1,0 +1,27 @@
+鉁?validateTokens: default tokens pass with zero errors (1108.4964ms)
+鉁?validateTokens: schema violations are reported as token-schema (1.3496ms)
+鉁?fixture bare-text.html 鈫?validateHtmlIR reports bare-text (659.6539ms)
+鉁?fixture gradient-text.html 鈫?validateHtmlIR reports gradient-on-text (660.5352ms)
+鉁?fixture cjk-ls.html 鈫?validateHtmlIR reports cjk-letter-spacing (688.3133ms)
+鉁?fixture page-size.html 鈫?validateHtmlIR reports page-size-mismatch (717.8938ms)
+鉁?fixture table-element.html 鈫?validateHtmlIR reports element-not-allowed (663.8148ms)
+鉁?fixture color-off.html 鈫?validateHtmlIR reports color-not-in-tokens (707.6325ms)
+鉁?fixture font-off.html 鈫?validateHtmlIR reports font-not-in-tokens (704.3984ms)
+鉁?fixture chart-bad.html 鈫?validateHtmlIR reports chart-schema (703.6687ms)
+鉁?fixture chart-pie.html 鈫?validateHtmlIR reports chart-type-unsupported (672.0495ms)
+鉁?fixture size-off.html 鈫?validateHtmlIR reports size-not-in-scale (687.9968ms)
+鉁?fixture style-forbidden.html 鈫?validateHtmlIR reports style-forbidden (666.0532ms)
+鉁?fixture raster-text.html 鈫?validateHtmlIR reports raster-with-text (720.4065ms)
+鉁?fixture no-lang.html 鈫?validateHtmlIR reports lang-missing (679.7242ms)
+鉁?clean corpus 02 鈫?validateHtmlIR returns zero errors (0.782ms)
+鉁?validatePptx: corpus 02 deck passes (ok=true, zero errors) (64.2369ms)
+鉁?validatePptx: tampered deck with a deleted <a:t> 鈫?missing-text (16.983ms)
+鉁?validatePptx: tampered deck with a shape moved out of bounds 鈫?out-of-bounds (13.7801ms)
+鈩?tests 19
+鈩?suites 0
+鈩?pass 19
+鈩?fail 0
+鈩?cancelled 0
+鈩?skipped 0
+鈩?todo 0
+鈩?duration_ms 11235.3009

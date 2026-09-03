@@ -36,6 +36,8 @@ function extractPageIR() {
   const EPS = 0.5; // px tolerance for sub-pixel layout noise
 
   // lang="zh-CN" is mandatory on <html> (html-level error; data-ppt-id null).
+  // The raw value is also carried on the IR so the pure validator can re-check
+  // it without re-reading the DOM.
   const htmlLang = document.documentElement.getAttribute('lang');
   if (htmlLang !== 'zh-CN') {
     errors.push({
@@ -297,7 +299,7 @@ function extractPageIR() {
     return false;
   }
 
-  function walk(el) {
+  function walk(el, parentId) {
     const tag = el.tagName; // uppercase
     if (!ALLOWED.has(tag)) {
       errors.push({
@@ -374,6 +376,7 @@ function extractPageIR() {
     if (tag === 'SPAN' || tag === 'A') {
       if (isInlineTextDescendant(el)) attrs.inline = true;
     }
+    if (el.hasAttribute('data-ppt-raster')) attrs.raster = true;
     const notes = el.getAttribute('data-ppt-notes');
     if (notes) attrs.notes = notes;
     const chart = el.getAttribute('data-ppt-chart');
@@ -391,6 +394,7 @@ function extractPageIR() {
 
     const element = {
       pptId,
+      parentId,
       tag: tag.toLowerCase(),
       rect: { x: r.x, y: r.y, w: r.width, h: r.height },
       styles: {
@@ -404,6 +408,15 @@ function extractPageIR() {
         lineHeightUsedPx,
         letterSpacingPx: cs.letterSpacing === 'normal' ? 0 : (parseFloat(cs.letterSpacing) || 0),
         textAlign: normalizeAlign(cs.textAlign),
+        // Constraint-relevant computed styles (validator rules style-forbidden,
+        // gradient-on-text, raster-with-text read these from the IR).
+        backgroundImage: cs.backgroundImage,
+        backgroundClip: cs.backgroundClip || cs.webkitBackgroundClip || 'border-box',
+        clipPath: cs.clipPath,
+        backdropFilter: cs.backdropFilter,
+        position: cs.position,
+        columnCount: parseInt(cs.columnCount, 10) || 0,
+        animationName: cs.animationName,
         border: {
           top: borderSide(cs, 'top'),
           right: borderSide(cs, 'right'),
@@ -426,12 +439,12 @@ function extractPageIR() {
     }
     elements.push(element);
 
-    for (const child of el.children) walk(child);
+    for (const child of el.children) walk(child, pptId);
   }
 
-  if (document.body) walk(document.body);
+  if (document.body) walk(document.body, null);
 
-  return { elements, lines, warnings, errors };
+  return { elements, lines, warnings, errors, lang: htmlLang };
 }
 
 module.exports = { extractPageIR };

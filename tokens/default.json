@@ -1,0 +1,31 @@
+{
+  "pageSize": { "w": 960, "h": 540 },
+  "palette": {
+    "bg": "#F5F7FA",
+    "surface": "#FFFFFF",
+    "surfaceAlt": "#EDF1F6",
+    "primary": "#1F4E79",
+    "primaryLight": "#3A6EA5",
+    "primaryDark": "#14365C",
+    "accent": "#C9A227",
+    "accentLight": "#DDBB4F",
+    "accentDark": "#A07F1B",
+    "text": "#1A1A1A",
+    "muted": "#6B7280",
+    "border": "#D8DEE6"
+  },
+  "fonts": {
+    "heading": "Microsoft YaHei",
+    "body": "DengXian",
+    "latin": "Segoe UI",
+    "mono": "Consolas"
+  },
+  "typeScale": {
+    "h1": 56,
+    "h2": 36,
+    "h3": 26,
+    "body": 17,
+    "small": 13
+  },
+  "spacing": 8
+}

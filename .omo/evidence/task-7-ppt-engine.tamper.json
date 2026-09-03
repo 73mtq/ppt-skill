@@ -1,0 +1,14 @@
+{
+  "scenario": "tamper: deleted first <a:t> from corpus 02 slide1.xml",
+  "ok": false,
+  "errors": [
+    {
+      "page": "02.html",
+      "data-ppt-id": null,
+      "rule": "missing-text",
+      "measured": "中英混排正文示例",
+      "available": "expected 1 occurrence(s), found 0",
+      "suggested_fix": "Every IR text run must appear in the slide XML."
+    }
+  ]
+}

@@ -64,6 +64,19 @@ async function renderPage(htmlPath, opts = {}) {
     const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: 1 });
     try {
       await page.goto(fileUrl, { waitUntil: 'networkidle', timeout: GOTO_TIMEOUT_MS });
+      // Capture active animations BEFORE the disabling style tag is injected
+      // (the validator's style-forbidden rule needs the real animationName).
+      const animated = await page.evaluate(() => {
+        const out = [];
+        for (const el of document.querySelectorAll('*')) {
+          const cs = getComputedStyle(el);
+          const name = cs.animationName;
+          if (name && name !== 'none') {
+            out.push({ id: el.getAttribute('data-ppt-id'), name });
+          }
+        }
+        return out;
+      });
       await page.addStyleTag({
         content: '*, *::before, *::after { animation: none !important; transition: none !important; }',
       });
@@ -86,6 +99,12 @@ async function renderPage(htmlPath, opts = {}) {
         requestAnimationFrame(() => requestAnimationFrame(resolve));
       }));
       const extracted = await page.evaluate(extractPageIR);
+      // Restore the pre-injection animation names onto the extracted elements
+      // (the injected `animation: none !important` would otherwise mask them).
+      for (const a of animated) {
+        const el = extracted.elements.find((e) => e.pptId === a.id);
+        if (el) el.styles.animationName = a.name;
+      }
       // Resolve img srcs to absolute filesystem paths (the browser reports a
       // file:// URL; PptxGenJS needs a path it can readFileSync).
       for (const el of extracted.elements) {
@@ -100,6 +119,7 @@ async function renderPage(htmlPath, opts = {}) {
       }
       return {
         page: pageName,
+        lang: extracted.lang,
         size: { w: VIEWPORT.width, h: VIEWPORT.height },
         elements: extracted.elements,
         lines: extracted.lines,
