@@ -1,0 +1,17 @@
+鉁?corpus 01: title/subtitle/meta each render as exactly 1 line (983.6923ms)
+鉁?corpus 02: mixed CJK paragraph line counts match expected.json (658.6949ms)
+鉁?corpus 01: CJK font resolution returns "Microsoft YaHei" for the title (690.7929ms)
+鉁?corpus 01/03/09: all element rects stay within the 960x540 canvas (2104.9882ms)
+鉁?no-lang fixture produces a structured {rule:"lang-missing"} error (679.9503ms)
+鉁?bad-element fixture reports element-not-allowed instead of silently skipping (643.4192ms)
+鉁?no-ids fixture auto-assigns deterministic ppt-N ids with warnings (692.7842ms)
+鉁?CLI validate-html --project corpus exits 0 with zero errors (9254.7526ms)
+鉁?CLI validate-html on a no-lang project exits non-zero with structured JSON error (1730.2214ms)
+鈩?tests 9
+鈩?suites 0
+鈩?pass 9
+鈩?fail 0
+鈩?cancelled 0
+鈩?skipped 0
+鈩?todo 0
+鈩?duration_ms 18103.6584

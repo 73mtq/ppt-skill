@@ -1,0 +1,146 @@
+{
+  "pages": [
+    {
+      "page": "no-lang.html",
+      "size": {
+        "w": 960,
+        "h": 540
+      },
+      "elements": [
+        {
+          "pptId": "ppt-1",
+          "tag": "body",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 960,
+            "h": 540
+          },
+          "styles": {
+            "bg": "rgb(245, 247, 250)",
+            "color": "rgb(26, 26, 26)",
+            "fontStack": "\"Microsoft YaHei\", sans-serif",
+            "fontResolved": "",
+            "fontSizePx": 16,
+            "fontWeight": "400",
+            "fontStyle": "normal",
+            "lineHeightUsedPx": 18.4,
+            "letterSpacingPx": 0,
+            "textAlign": "left",
+            "border": {
+              "top": {
+                "widthPx": 0,
+                "style": "none",
+                "color": "rgba(0, 0, 0, 0)"
+              },
+              "right": {
+                "widthPx": 0,
+                "style": "none",
+                "color": "rgba(0, 0, 0, 0)"
+              },
+              "bottom": {
+                "widthPx": 0,
+                "style": "none",
+                "color": "rgba(0, 0, 0, 0)"
+              },
+              "left": {
+                "widthPx": 0,
+                "style": "none",
+                "color": "rgba(0, 0, 0, 0)"
+              }
+            },
+            "radiusPx": 0,
+            "shadow": null,
+            "opacity": 1,
+            "zIndex": 0,
+            "fontBoundingBoxAscentPx": 0,
+            "fontBoundingBoxDescentPx": 0
+          }
+        },
+        {
+          "pptId": "title",
+          "tag": "h1",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 960,
+            "h": 52
+          },
+          "styles": {
+            "bg": "rgba(0, 0, 0, 0)",
+            "color": "rgb(26, 26, 26)",
+            "fontStack": "\"Microsoft YaHei\", sans-serif",
+            "fontResolved": "Microsoft YaHei",
+            "fontSizePx": 40,
+            "fontWeight": "700",
+            "fontStyle": "normal",
+            "lineHeightUsedPx": 52,
+            "letterSpacingPx": 0,
+            "textAlign": "left",
+            "border": {
+              "top": {
+                "widthPx": 0,
+                "style": "none",
+                "color": "rgba(0, 0, 0, 0)"
+              },
+              "right": {
+                "widthPx": 0,
+                "style": "none",
+                "color": "rgba(0, 0, 0, 0)"
+              },
+              "bottom": {
+                "widthPx": 0,
+                "style": "none",
+                "color": "rgba(0, 0, 0, 0)"
+              },
+              "left": {
+                "widthPx": 0,
+                "style": "none",
+                "color": "rgba(0, 0, 0, 0)"
+              }
+            },
+            "radiusPx": 0,
+            "shadow": null,
+            "opacity": 1,
+            "zIndex": 0,
+            "fontBoundingBoxAscentPx": 42,
+            "fontBoundingBoxDescentPx": 10
+          }
+        }
+      ],
+      "lines": {
+        "title": {
+          "count": 1,
+          "rects": [
+            {
+              "x": 0,
+              "y": 0,
+              "w": 391.28125,
+              "h": 52
+            }
+          ]
+        }
+      },
+      "warnings": [
+        {
+          "page": "no-lang.html",
+          "data-ppt-id": "ppt-1",
+          "rule": "ppt-id-missing",
+          "measured": null,
+          "available": null,
+          "suggested_fix": "Add data-ppt-id=\"ppt-1\" to this <body> element."
+        }
+      ],
+      "errors": [
+        {
+          "page": "no-lang.html",
+          "data-ppt-id": null,
+          "rule": "lang-missing",
+          "measured": null,
+          "available": "zh-CN",
+          "suggested_fix": "Add lang=\"zh-CN\" to the <html> tag of this page."
+        }
+      ]
+    }
+  ]
+}

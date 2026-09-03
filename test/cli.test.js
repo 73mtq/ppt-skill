@@ -44,7 +44,7 @@ test('unknown command exits non-zero and prints usage', () => {
 });
 
 test('stub command exits 2 and prints "not implemented"', () => {
-  for (const cmd of ['convert', 'render', 'validate', 'validate-html']) {
+  for (const cmd of ['convert', 'render', 'validate']) {
     const res = runCli([cmd]);
     assert.equal(res.status, 2, `"${cmd}" stub must exit 2, got ${res.status}`);
     assert.match(res.stderr, /not implemented/, `"${cmd}" stub must print "not implemented"`);
