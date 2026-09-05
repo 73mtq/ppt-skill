@@ -4,6 +4,14 @@ node_modules/
 # Build / output artifacts
 out/
 
+# E2E demo decks (dual-channel source projects — regenerable, not committed)
+业务复盘汇报/
+Transformer入门分享/
+余华介绍/
+余华重建/
+
 # Large PNG screenshots (QA shots, evidence snapshots)
 *.png
 !corpus/assets/*.png
+# Session artifacts (evidence/ledger/plans)
+.omo/

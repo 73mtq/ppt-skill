@@ -300,6 +300,12 @@ function validateHtmlIR(ir, tokens) {
       errors.push(err(page, id, 'size-not-in-scale', s.fontSizePx, typeScaleAvailable(), 'Use a font size from the design-system §3 type scale.'));
     }
 
+    // img-src-missing: an <img> without a resolvable src would be silently
+    // dropped by the convert layer — never a silent degradation.
+    if (el.tag === 'img' && !attrs.src) {
+      errors.push(err(page, id, 'img-src-missing', null, 'non-empty src (file path or data: URI)', 'Give the <img> a src attribute pointing to an existing image file.'));
+    }
+
     // chart checks (data-ppt-chart)
     if (attrs.chart) {
       let parsed = null;

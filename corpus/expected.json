@@ -122,14 +122,14 @@
         "p-close-bracket": 1,
         "p-line-start-1": 1,
         "p-line-start-2": 1,
-        "p-punct-run": 2,
+        "p-punct-run": 1,
         "p-punct-run-2": 2,
         "p-rare-char": 1
       },
       "totalTextRuns": 7,
       "chartType": "none",
       "imageCount": 0,
-      "notes": "对抗性 CJK：行尾闭括号恰满 1 行；20 连 ー 与 ぁぃぅぇぉ 行首段各 1 行；连续标点两段各 2 行；雅黑外生僻字 𠀀/𠈌 等代理对 1 行"
+      "notes": "对抗性 CJK：行尾闭括号恰满 1 行；20 连 ー 与 ぁぃぅぇぉ 行首段各 1 行；连续标点 p-punct-run 1 行（DengXian 标点窄，实测 860px<864px 内容宽；YaHei 下 884px 才折 2 行）、p-punct-run-2 2 行；雅黑外生僻字 𠀀/𠈌 等代理对 1 行"
     },
     {
       "file": "11.html",

@@ -110,6 +110,7 @@ const FIXTURE_RULES = [
   ['style-forbidden.html', 'style-forbidden'],
   ['raster-text.html', 'raster-with-text'],
   ['no-lang.html', 'lang-missing'],
+  ['img-no-src.html', 'img-src-missing'],
 ];
 
 for (const [file, rule] of FIXTURE_RULES) {
@@ -169,4 +170,59 @@ test('validatePptx: tampered deck with a shape moved out of bounds → out-of-bo
   const hit = result.errors.find((e) => e.rule === 'out-of-bounds');
   assert.ok(hit, `must report out-of-bounds, got: ${JSON.stringify(result.errors.map((e) => e.rule))}`);
   assert.match(hit.measured, /x=-100/);
+});
+
+test('validatePptx: text with quotes/apostrophe/ampersand passes (escapeXml parity with PptxGenJS)', async () => {
+  // PptxGenJS escapes " → &quot; and ' → &apos; inside <a:t>; the validator's
+  // escapeXml must match exactly or visible quote text would false-positive
+  // missing-text. Build a real deck containing all four XML-special chars.
+  const border = (c) => ({ widthPx: 0, style: 'none', color: c });
+  const el = {
+    pptId: 'quote-p',
+    tag: 'p',
+    rect: { x: 48, y: 100, w: 500, h: 54 },
+    styles: {
+      bg: 'rgba(0, 0, 0, 0)',
+      color: 'rgb(26, 26, 26)',
+      fontStack: '"Microsoft YaHei", sans-serif',
+      fontResolved: 'Microsoft YaHei',
+      fontSizePx: 17,
+      fontWeight: '400',
+      fontStyle: 'normal',
+      lineHeightUsedPx: 27.2,
+      letterSpacingPx: 0,
+      textAlign: 'left',
+      border: { top: border('rgba(0, 0, 0, 0)'), right: border('rgba(0, 0, 0, 0)'), bottom: border('rgba(0, 0, 0, 0)'), left: border('rgba(0, 0, 0, 0)') },
+      radiusPx: 0,
+      shadow: null,
+      opacity: 1,
+      zIndex: 0,
+      fontBoundingBoxAscentPx: 16,
+      fontBoundingBoxDescentPx: 4,
+    },
+    text: '他说 "你好" & it\'s <tag>',
+    attrs: {},
+  };
+  const ir = {
+    page: 'quotes.html',
+    lang: 'zh-CN',
+    size: { w: 960, h: 540 },
+    elements: [el],
+    lines: {
+      'quote-p': {
+        count: 1,
+        rects: [{ x: 48, y: 100, w: 500, h: 54 }],
+        runs: [[{
+          text: '他说 "你好" & it\'s <tag>',
+          styles: { fontResolved: 'Microsoft YaHei', fontSizePx: 17, fontWeight: '400', fontStyle: 'normal', color: 'rgb(26, 26, 26)', letterSpacingPx: 0 },
+        }]],
+      },
+    },
+    warnings: [],
+    errors: [],
+  };
+  const pptx = buildPresentation([ir], tokens);
+  const buf = await pptx.write({ outputType: 'nodebuffer' });
+  const result = await validatePptx(buf, [ir], tokens);
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
 });

@@ -154,3 +154,24 @@ test('CLI validate-html on a no-lang project exits non-zero with structured JSON
     fs.rmSync(tmp, { recursive: true, force: true });
   }
 });
+
+test('CLI validate-html on a gradient-text project exits non-zero with gradient-on-text', () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'ppt-engine-grad-'));
+  try {
+    fs.writeFileSync(path.join(tmp, 'deck.json'), JSON.stringify({ pages: [{ file: 'gradient-text.html' }] }));
+    fs.mkdirSync(path.join(tmp, 'pages'));
+    fs.copyFileSync(path.join(FIXTURES, 'gradient-text.html'), path.join(tmp, 'pages', 'gradient-text.html'));
+    const res = spawnSync(process.execPath, [BIN, 'validate-html', '--project', tmp, '--json'], {
+      encoding: 'utf8',
+      timeout: 60000,
+    });
+    assert.notEqual(res.status, 0, 'gradient-text project must exit non-zero');
+    const out = JSON.parse(res.stdout);
+    assert.ok(
+      out.pages[0].errors.some((e) => e.rule === 'gradient-on-text'),
+      `must report gradient-on-text, got: ${JSON.stringify(out.pages[0].errors)}`
+    );
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});

@@ -384,12 +384,18 @@ function extractPageIR() {
     if (tag === 'UL' || tag === 'OL') attrs.listType = tag.toLowerCase();
     if (tag === 'LI') {
       let depth = 0;
+      let listType = 'ul';
       let p = el.parentElement;
       while (p && p !== document.body) {
-        if (p.tagName === 'UL' || p.tagName === 'OL') depth++;
+        if (p.tagName === 'UL' || p.tagName === 'OL') {
+          depth++;
+          // Nearest list ancestor decides the bullet style (ol → numbered).
+          if (depth === 1) listType = p.tagName.toLowerCase();
+        }
         p = p.parentElement;
       }
       attrs.depth = depth;
+      attrs.listType = listType;
     }
 
     const element = {

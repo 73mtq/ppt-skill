@@ -10,24 +10,24 @@
     background: #F5F7FA;
     font-family: "DengXian", "Microsoft YaHei", "Segoe UI", sans-serif;
     color: #1A1A1A;
-    padding: 40px 48px 32px 48px;
+    padding: 32px 48px 24px 48px;
   }
   h2 { font-family: "Microsoft YaHei", "Segoe UI", sans-serif; font-weight: 700; }
   h3 { font-family: "Microsoft YaHei", "Segoe UI", sans-serif; font-weight: 700; }
-  p { font-size: 14px; line-height: 1.6; margin: 0; }
+  p { font-size: 14px; line-height: 1.2; margin: 0; }
 </style>
 </head>
-<body data-ppt-role="content">
+<body data-ppt-id="body" data-ppt-role="content">
   <h2 data-ppt-id="title" style="font-size:32px; margin:0; color:#1F4E79;">高密度文字压力页</h2>
-  <h3 data-ppt-id="sec-1" style="font-size:24px; margin:0; margin-top:24px; color:#14365C;">一、背景与目标</h3>
+  <h3 data-ppt-id="sec-1" style="font-size:24px; margin:0; margin-top:16px; color:#14365C;">一、背景与目标</h3>
   <p data-ppt-id="p-1" style="margin-top:8px;">本页用于验证引擎在高密度中文排版下的逐行测量与文本发射能力。页面包含超过五百个汉字，分布在多个段落与小节标题中，覆盖标题、正文、列表等多种字号与行高组合，确保转换后的幻灯片在文字数量与行数上与源文件严格一致。</p>
-  <h3 data-ppt-id="sec-2" style="font-size:24px; margin:0; margin-top:24px; color:#14365C;">二、核心结论</h3>
+  <h3 data-ppt-id="sec-2" style="font-size:24px; margin:0; margin-top:16px; color:#14365C;">二、核心结论</h3>
   <p data-ppt-id="p-2" style="margin-top:8px;">第一，逐行发射方案能够完全避免 PowerPoint 对中文文本的重新折行，行尾标点与行首禁则均按浏览器测量结果原样保留。第二，文本框三元组即外边距归零、垂直对齐显式声明、行距精确到磅值，三者缺一不可，否则会出现行距漂移或文字溢出。第三，字体解析必须按实际使用的字体族逐段判定，含中文的文本段一律提升到第一个可用的中文字体。</p>
-  <h3 data-ppt-id="sec-3" style="font-size:24px; margin:0; margin-top:24px; color:#14365C;">三、风险与对策</h3>
+  <h3 data-ppt-id="sec-3" style="font-size:24px; margin:0; margin-top:16px; color:#14365C;">三、风险与对策</h3>
   <p data-ppt-id="p-3" style="margin-top:8px;">主要风险来自浏览器与 PowerPoint 对中文排版细节的差异，包括标点挤压规则、行首禁则字符集合以及字距的舍入方式。对策是建立黄金语料库，将对抗性用例纳入回归测试，任何一次引擎改动都必须通过全部语料页面的行数与文本内容校验，防止回归。</p>
-  <h3 data-ppt-id="sec-4" style="font-size:24px; margin:0; margin-top:24px; color:#14365C;">四、实施计划</h3>
+  <h3 data-ppt-id="sec-4" style="font-size:24px; margin:0; margin-top:16px; color:#14365C;">四、实施计划</h3>
   <p data-ppt-id="p-4" style="margin-top:8px;">第一阶段完成渲染测量层，输出包含每行矩形与字体信息的布局中间表示。第二阶段实现转换核心，将中间表示逐元素翻译为原生幻灯片对象。第三阶段完成结构校验器，对生成的幻灯片文件进行解包检查，核对文本数量、内容、形状边界与字体白名单，全部通过后方可交付。</p>
-  <h3 data-ppt-id="sec-5" style="font-size:24px; margin:0; margin-top:24px; color:#14365C;">五、验收标准</h3>
+  <h3 data-ppt-id="sec-5" style="font-size:24px; margin:0; margin-top:16px; color:#14365C;">五、验收标准</h3>
   <p data-ppt-id="p-5" style="margin-top:8px;">验收以自动化测试为准，不依赖人工目测。测试覆盖全部语料页面，断言每页文本行数与源文件一致、文本内容逐段匹配、所有形状不超出画布边界、字体全部来自白名单。任何一项失败即视为转换失败，必须修复后重新运行全部测试。</p>
 </body>
 </html>

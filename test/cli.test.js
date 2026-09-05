@@ -43,12 +43,34 @@ test('unknown command exits non-zero and prints usage', () => {
   assert.match(res.stderr, /Usage:/, 'stderr must print usage');
 });
 
-test('stub command exits 2 and prints "not implemented"', () => {
-  for (const cmd of ['convert', 'render', 'validate']) {
-    const res = runCli([cmd]);
-    assert.equal(res.status, 2, `"${cmd}" stub must exit 2, got ${res.status}`);
-    assert.match(res.stderr, /not implemented/, `"${cmd}" stub must print "not implemented"`);
-  }
+test('validate without a deck path exits 2 (usage error)', () => {
+  const res = runCli(['validate']);
+  assert.equal(res.status, 2, `validate without a deck path must exit 2, got ${res.status}`);
+  assert.match(res.stderr, /deck\.pptx/, 'stderr must mention <deck.pptx>');
+});
+
+test('validate on a nonexistent deck exits 1', () => {
+  const res = runCli(['validate', 'C:/nonexistent/deck.pptx']);
+  assert.equal(res.status, 1, `validate on a missing deck must exit 1, got ${res.status}`);
+  assert.match(res.stderr, /deck not found/, 'stderr must report the missing deck');
+});
+
+test('convert without --project exits 2 (usage error)', () => {
+  const res = runCli(['convert']);
+  assert.equal(res.status, 2, `convert without --project must exit 2, got ${res.status}`);
+  assert.match(res.stderr, /--project/, 'stderr must mention --project');
+});
+
+test('render without --project exits 2 (usage error)', () => {
+  const res = runCli(['render']);
+  assert.equal(res.status, 2, `render without --project must exit 2, got ${res.status}`);
+  assert.match(res.stderr, /--project/, 'stderr must mention --project');
+});
+
+test('render without --shots exits 2 (usage error)', () => {
+  const res = runCli(['render', '--project', '.']);
+  assert.equal(res.status, 2, `render without --shots must exit 2, got ${res.status}`);
+  assert.match(res.stderr, /--shots/, 'stderr must mention --shots');
 });
 
 test('no arguments prints usage and exits non-zero', () => {

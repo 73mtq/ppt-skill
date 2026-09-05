@@ -320,6 +320,17 @@ test('fake IR: nested li gets a deeper indentLevel', async () => {
   assert.match(xml, /<a:buChar/, 'li must carry a bullet');
 });
 
+test('fake IR: li with listType ol emits a numbered bullet (buAutoNum), not a char bullet', async () => {
+  const li = textElement('li-1', { tag: 'li', attrs: { depth: 1, listType: 'ol' } });
+  const ir = fakeIr([li], {
+    'li-1': { count: 1, rects: [{ x: 48, y: 100, w: 300, h: 27 }], runs: [[run('第一条')]] },
+  });
+  const zip = await convertToZip([ir]);
+  const xml = await slideXml(zip);
+  assert.match(xml, /<a:buAutoNum/, 'ol li must emit a numbered bullet');
+  assert.doesNotMatch(xml, /<a:buChar/, 'ol li must not emit a plain char bullet');
+});
+
 test('fake IR: img with object-fit cover emits a native picture', async () => {
   const img = {
     pptId: 'img-main',
