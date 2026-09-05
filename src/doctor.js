@@ -232,4 +232,4 @@ async function runDoctor(args) {
   return ok ? 0 : 1;
 }
 
-module.exports = { runDoctor, parseFlags, DEFAULT_FONT_DIR, FONT_CHECKS };
+module.exports = { runDoctor, parseFlags, DEFAULT_FONT_DIR, FONT_CHECKS, findOnPath, PDFTOPPM_DIRS };
