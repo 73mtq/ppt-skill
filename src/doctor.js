@@ -41,6 +41,7 @@ const SOFFICE_DIRS = [
 const PDFTOPPM_DIRS = [
   'C:\\Program Files\\poppler\\Library\\bin\\pdftoppm.exe',
   'C:\\Program Files (x86)\\poppler\\Library\\bin\\pdftoppm.exe',
+  'D:\\tools\\poppler\\Library\\bin\\pdftoppm.exe',
 ];
 
 const FONT_FIX =
@@ -208,13 +209,18 @@ async function runDoctor(args) {
       SOFFICE_DIRS,
       'Install LibreOffice (https://www.libreoffice.org/) to enable optional pixel-diff QA; not required for core conversion.'
     ),
-    checkOptionalTool(
-      'pdftoppm',
-      'pdftoppm',
-      PDFTOPPM_DIRS,
-      'Install Poppler (https://github.com/oschwartz10612/poppler-windows) to enable optional pixel-diff QA; not required for core conversion.'
-    ),
   ];
+  const pdftoppmCheck = checkOptionalTool(
+    'pdftoppm',
+    'pdftoppm',
+    PDFTOPPM_DIRS,
+    'Install Poppler (https://github.com/oschwartz10612/poppler-windows) to enable optional pixel-diff QA; not required for core conversion.'
+  );
+  if (!pdftoppmCheck.found) {
+    pdftoppmCheck.detail =
+      'pdftoppm not found (optional — required for pdf-extract PDF intake and pixel-diff QA; HTML→PPTX conversion unaffected)';
+  }
+  checks.push(pdftoppmCheck);
   const ok = checks.filter((c) => c.mandatory).every((c) => c.ok);
   const out = { ok, strict: flags.strict, checks };
   if (flags.json) {
